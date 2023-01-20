@@ -15,6 +15,8 @@ class RegisterAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        user.is_active = False
+        user.save()
         token = AuthToken.objects.create(user)
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
@@ -37,8 +39,6 @@ class LoginAPI(generics.GenericAPIView):
 
 
 def verify_user_and_activate(request, token):
-    #print(AuthToken.objects.filter(pk=token).first())
-    print(AuthToken.objects.all())
     try:
         auth = AuthToken.objects.filter(digest=token).first()
         auth.user.is_active = True

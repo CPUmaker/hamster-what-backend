@@ -15,8 +15,6 @@ def create_related_profile(sender, instance, created, *args, **kwargs):
     if instance and created:
         # create profile for new user
         instance.profile = Profile.objects.create(user=instance)
-        # reset user's status to inactive
-        instance.is_active = False
 
 
 @receiver(post_save, sender=User)
