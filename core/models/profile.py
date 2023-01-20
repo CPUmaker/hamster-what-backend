@@ -6,11 +6,9 @@ from django.db import models
 from django_countries.fields import CountryField
 from django_extensions.db.models import TimeStampedModel
 
-from .utils import UUIDModel
 
-
-class Profile(TimeStampedModel, UUIDModel):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Profile(TimeStampedModel):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     bio = models.TextField(blank=True)
     birthday = models.DateField(verbose_name="Birthday", null=True)
     country = CountryField(null=True, verbose_name="Country")

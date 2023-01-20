@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+from datetime import timedelta
 import os
 from pathlib import Path
 
@@ -50,6 +51,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'knox.auth.TokenAuthentication',
     ],
+}
+
+REST_KNOX = {
+  'TOKEN_TTL': timedelta(days=3),
+  'AUTO_REFRESH': True,
 }
 
 MIDDLEWARE = [

@@ -1,12 +1,12 @@
 {% autoescape off %}
-To initiate the password reset process for you {{ username }} for your BuyforFree Account,
+To initiate the password reset process for you {{ username }} for your Account,
 click the link below:
 
-http://josla.com/confirm{{reset_password_url}}
+http://{{ domain }}{% url 'activate' token=token %}
 
 If clicking the link above doesn't work, please copy and paste the URL in a new browser
 window instead.
 
 Sincerely,
-Josla
+ECE651_DEMO
 {% endautoescape %}

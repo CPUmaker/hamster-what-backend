@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
 from knox.models import AuthToken
@@ -33,3 +34,30 @@ class LoginAPI(generics.GenericAPIView):
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": token[1],
         })
+
+
+def verify_user_and_activate(request, token):
+    #print(AuthToken.objects.filter(pk=token).first())
+    print(AuthToken.objects.all())
+    try:
+        auth = AuthToken.objects.filter(digest=token).first()
+        auth.user.is_active = True
+        auth.user.save()
+        return render(
+            request,
+            template_name='email/verification_success.html',
+            context={
+                'msg': 'Your Email is verified successfully and account has been activated.',
+                'status': 'Verification Successful!',
+            }
+        )
+    except:
+        return render(
+            request,
+            template_name='email/verification_fail.html',
+            context={
+                'msg': 'There is something wrong with this link, unable to verify the user...',
+                'minor_msg': 'There is something wrong with this link...',
+                'status': 'Verification Failed!',
+            }
+        )

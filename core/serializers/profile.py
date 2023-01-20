@@ -4,6 +4,7 @@ from core.models.profile import Profile
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    country = serializers.CharField()
     class Meta:
         model = Profile
-        fields = ('id', 'user', 'bio', 'birthday', 'country', 'city', 'affiliation', 'photo')
+        fields = ('user', 'bio', 'birthday', 'country', 'city', 'affiliation', 'photo')
