@@ -49,7 +49,7 @@ git merge <branch-name>
 
 - [ ] Install [Miniconda](https://conda.io/projects/conda/en/stable/user-guide/install/download.html) or [Anaconda](https://www.anaconda.com/) to manage your python packages.
 
-- [ ] Create a virtual env via conda: `conda create --name <env> --file requirements.txt`.
+- [ ] Create a virtual env via conda: `conda env create -f environment.yml`.
 
 - [ ] Start the Django server:
 
