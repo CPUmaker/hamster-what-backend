@@ -62,7 +62,22 @@ python manage.py runserver 0.0.0.0:8000     # This command could let you test yo
 
 ## Usage
 
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+- Check migration before run the server:
+
+```script
+python manage.py makemigrations
+python manage.py migrate
+```
+
+- Run the server
+
+```script
+python manage.py runserver
+```
+
+- Browser the document
+
+Type the link (`http://127.0.0.1:8000/docs/`) in to the browser, and you could see the API document there.
 
 ## Support
 
