@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
 from knox.models import AuthToken
+from django.contrib.auth.backends import AllowAllUsersModelBackend
 
 from core.serializers.login import LoginSerializer
 from core.serializers.register import RegisterSerializer
