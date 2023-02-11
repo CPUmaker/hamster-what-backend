@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, HTTP_HEADER_ENCODING
+from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
+from knox.auth import TokenAuthentication
 from knox.models import AuthToken
 from django.contrib.auth.backends import AllowAllUsersModelBackend
 
@@ -37,6 +39,18 @@ class LoginAPI(generics.GenericAPIView):
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": token[1],
         })
+
+
+@api_view(['GET'])
+@authentication_classes([])
+def validate_token(request):
+    try:
+        authenticator = TokenAuthentication()
+        user, auth_token = authenticator.authenticate(request)
+        if user and auth_token:
+            return Response({'valid': 'true'})
+    except:
+        return Response({'valid': 'false'})
 
 
 def verify_user_and_activate(request, token):
