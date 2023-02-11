@@ -20,7 +20,7 @@ def create_related_profile(sender, instance, created, *args, **kwargs):
 @receiver(post_save, sender=User)
 def send_activation_email(sender, instance, created, *args, **kwargs):
     # send an e-mail to the user
-    if instance and created:
+    if instance and (created or not instance.is_active):
         context = {
             'current_user': instance,
             'username': instance.username,
