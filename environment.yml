@@ -38,3 +38,6 @@ dependencies:
     - pygments
     - django-filter
     - django-guardian
+    - dj-rest-auth
+    - django-allauth
+    - djangorestframework-simplejwt

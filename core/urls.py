@@ -2,7 +2,7 @@ from django.urls import path, include
 from knox import views as knox_views
 from rest_framework import routers
 
-from core.api.auth import RegisterAPI, LoginAPI, validate_token, verify_user_and_activate
+from core.api.auth import RegisterAPI, LoginAPI, AppleLogin, GoogleLogin, FacebookLogin, validate_token, verify_user_and_activate
 from core.api.password import ChangePasswordView
 from core.api.profile import ProfileViewSet
 
@@ -16,6 +16,9 @@ urlpatterns += [
     path('api/auth/activate/<token>', verify_user_and_activate, name='activate'),
     path('api/auth/login', LoginAPI.as_view(), name='login'),
     path('api/auth/logout', knox_views.LogoutView.as_view(), name='logout'),
+    path('api/auth/apple', AppleLogin.as_view(), name='apple_login'),
+    path('api/auth/google', GoogleLogin.as_view(), name='google_login'),
+    path('api/auth/facebook', FacebookLogin.as_view(), name='facebook_login'),
     path('api/auth/validate-token', validate_token, name='validate-token'),
     # passwd
     path('api/change-password', ChangePasswordView.as_view(), name='change-password'),

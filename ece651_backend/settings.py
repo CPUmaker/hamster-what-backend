@@ -53,7 +53,7 @@ REST_FRAMEWORK = {
 }
 
 REST_KNOX = {
-  'TOKEN_TTL': timedelta(days=3),
+  'TOKEN_TTL': timedelta(days=7),
   'AUTO_REFRESH': True,
 }
 
@@ -129,7 +129,7 @@ TIME_ZONE = 'America/Toronto'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
