@@ -36,40 +36,26 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
     'rest_framework',
     'django_rest_passwordreset',
     'knox',
-    'dj_rest_auth',
-    'dj_rest_auth.registration',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.apple',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.twitter',
     'core',
 ]
-
-SITE_ID = 1
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'knox.auth.TokenAuthentication',
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
 }
 
 REST_KNOX = {
-  'TOKEN_TTL': timedelta(days=3),
+  'TOKEN_TTL': timedelta(days=7),
   'AUTO_REFRESH': True,
 }
-
-REST_USE_JWT = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -162,38 +148,3 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Media Settings
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-SOCIALACCOUNT_PROVIDERS = {
-    "apple": {
-        "APP": {
-            # Your service identifier.
-            "client_id": "your.service.id",
-
-            # The Key ID (visible in the "View Key Details" page).
-            "secret": "KEYID",
-
-             # Member ID/App ID Prefix -- you can find it below your name
-             # at the top right corner of the page, or it’s your App ID
-             # Prefix in your App ID.
-            "key": "MEMAPPIDPREFIX",
-
-            # The certificate you downloaded when generating the key.
-            "certificate_key": """-----BEGIN PRIVATE KEY-----
-s3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr
-3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3
-c3ts3cr3t
------END PRIVATE KEY-----
-"""
-        }
-    },
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'OAUTH_PKCE_ENABLED': True,
-    }
-}
