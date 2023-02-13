@@ -5,6 +5,7 @@ from rest_framework import routers
 from core.api.auth import RegisterAPI, LoginAPI, AppleLogin, GoogleLogin, FacebookLogin, validate_token, verify_user_and_activate
 from core.api.password import ChangePasswordView
 from core.api.profile import ProfileViewSet
+from core.api.coupon import CouponViewSet
 
 router = routers.DefaultRouter()
 
@@ -24,5 +25,7 @@ urlpatterns += [
     path('api/change-password', ChangePasswordView.as_view(), name='change-password'),
     path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     # profile
-    path('api/profile', ProfileViewSet.as_view(), name='profile')
+    path('api/profile', ProfileViewSet.as_view(), name='profile'),
+    # coupon
+    path('api/coupon', CouponViewSet.as_view(), name='coupon'),
 ]
