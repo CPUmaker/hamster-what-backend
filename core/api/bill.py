@@ -12,7 +12,7 @@ class BillListCreate(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Ge
         authentication.SessionAuthentication,
         authentication.TokenAuthentication
     ]
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -28,7 +28,7 @@ class BillListCreate(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Ge
         default_user = self.request.user
         if not default_user:
             default_user = None
-        # serializer.is_valid()
+        serializer.is_valid()
         serializer.save(user = default_user)
 
     def get_queryset(self, *args, **kwargs):
@@ -54,7 +54,7 @@ class BillDetail(mixins.RetrieveModelMixin,
         authentication.SessionAuthentication,
         authentication.TokenAuthentication
     ]
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
     lookup_field = "pk"
 
     def get(self, request, *args, **kwargs):
@@ -65,5 +65,19 @@ class BillDetail(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+    
+    def perform_create(self, serializer):
+        default_user = self.request.user
+        if not default_user:
+            default_user = None
+        serializer.save(user = default_user)
+
+    def get_queryset(self, *args, **kwargs):
+        qs =super().get_queryset(*args, **kwargs)
+        request = self.request
+        user = request.user
+        if not user.is_authenticated:
+            return Bill.objects.none()
+        return qs.filter(user = user)
 
 bill_detail_api = BillDetail.as_view()
