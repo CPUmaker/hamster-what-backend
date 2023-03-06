@@ -6,6 +6,7 @@ from core.api.auth import RegisterAPI, LoginAPI, AppleLogin, GoogleLogin, Facebo
 from core.api.password import ChangePasswordView
 from core.api.profile import ProfileViewSet
 from core.api.coupon import CouponViewSet
+from core.api.bill import *
 
 router = routers.DefaultRouter()
 
@@ -28,4 +29,8 @@ urlpatterns += [
     path('api/profile', ProfileViewSet.as_view(), name='profile'),
     # coupon
     path('api/coupon', CouponViewSet.as_view(), name='coupon'),
+
+    # bill
+    path('api/bill/', bill_list_create_api, name="bill-list"),
+    path('api/bill/<uuid:pk>/', bill_detail_api, name="bill-detail")
 ]
