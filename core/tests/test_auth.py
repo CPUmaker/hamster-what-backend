@@ -128,3 +128,42 @@ class AuthTests(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    
+    def test_validate_token_default(self):
+        username = "xjhmlcy"
+        email = "xjhmlcy123@gmail.com"
+        password = "abcdefg123"
+        token, token_key = self.add_test_person(username, email, password)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token_key)
+
+        url = "/api/auth/validate-token"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['valid'], 'true')
+    
+    def test_validate_token_invalid(self):
+        username = "xjhmlcy"
+        email = "xjhmlcy123@gmail.com"
+        password = "abcdefg123"
+        token, token_key = self.add_test_person(username, email, password)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token_key[:-1] + "1")
+        token.user.is_active = True
+        token.user.save()
+
+        url = "/api/auth/validate-token"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['valid'], 'false')
+
+    def test_varify_user_and_activate_default(self):
+        username = "xjhmlcy"
+        email = "xjhmlcy123@gmail.com"
+        password = "abcdefg123"
+        token, token_key = self.add_test_person(username, email, password)
+        token.user.is_active = False
+        token.user.save()
+
+        url = f"/api/auth/activate/{token.digest}"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(User.objects.get().is_active)
