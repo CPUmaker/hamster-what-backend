@@ -34,3 +34,9 @@ urlpatterns += [
     path('api/bill/', bill_list_create_api, name="bill-list"),
     path('api/bill/<uuid:pk>/', bill_detail_api, name="bill-detail")
 ]
+
+
+from rest_framework.authtoken.views import obtain_auth_token
+urlpatterns += [
+    path('api/auth/', obtain_auth_token)
+]
