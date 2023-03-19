@@ -42,12 +42,12 @@ class BillSearchQuerySet(models.QuerySet):
             qs = self.filter(user=user).filter(lookup)
         return qs
     
-    def searchTitle(self, keyword, user=None):
-        lookup = Q(title__contains = keyword)
-        qs = self.filter(lookup)
-        if user is not None:
-            qs = self.filter(user=user).filter(lookup)
-        return qs
+    # def searchTitle(self, keyword, user=None):
+    #     lookup = Q(title__contains = keyword)
+    #     qs = self.filter(lookup)
+    #     if user is not None:
+    #         qs = self.filter(user=user).filter(lookup)
+    #     return qs
     
 
     # def categorieAmount(self, date, categories, user=None):
@@ -65,7 +65,7 @@ class Bill(UUIDModel):
 
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
     
-    title = models.CharField(max_length = 120)
+    # title = models.CharField(max_length = 120)
     
     date = models.DateField(verbose_name="payment time", default = datetime.date.today)
 
@@ -93,3 +93,13 @@ class Bill(UUIDModel):
 
 
     categories = models.SmallIntegerField(verbose_name="bill categories", choices = categories, default=11)
+
+    wallet = (
+        (1, "checking account"),
+        (2, "credit account"),
+        (3, "cash"),
+        (4, "savings account"),
+        (5, "other")
+    )
+
+    wallet = models.SmallIntegerField(verbose_name="wallet", choices=wallet, default=3)
