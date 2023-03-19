@@ -8,6 +8,7 @@ from core.api.profile import ProfileViewSet
 from core.api.coupon import CouponViewSet
 from core.api.bill import *
 from core.api.billSearch import SearchBillListView
+from core.api.billPriceSum import BillSumPriceListViewAPI
 
 router = routers.DefaultRouter()
 
@@ -36,7 +37,10 @@ urlpatterns += [
     path('api/bill/<uuid:pk>/', bill_detail_api, name="bill-detail"),
 
     # bill search
-    path('api/bill/search/', SearchBillListView.as_view(), name="bill-search")
+    path('api/bill/search/', SearchBillListView.as_view(), name="bill-search"),
+
+    # bill price list searched by categories
+    path('api/bill/price-sum/', BillSumPriceListViewAPI, name="bill-price-sum")
 ]
 
 

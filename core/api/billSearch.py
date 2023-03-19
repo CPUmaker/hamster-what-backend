@@ -35,5 +35,4 @@ class SearchBillListView(generics.ListAPIView):
                 result = qs.searchToday(user=user)
         elif item == "title":
             result = qs.searchTitle(keyword, user=user)
-        print(result)
         return result
