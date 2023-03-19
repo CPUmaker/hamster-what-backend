@@ -36,9 +36,7 @@ class BillSumPriceListView(generics.ListAPIView):
         for i in range(1,12):
             qs = BillSearchQuerySet(Bill).searchCategories(query=i, user=user)
             total_price = qs.aggregate(Sum('price'))
-            print(total_price)
             data[categorieModel[i]] = total_price['price__sum']
-        print(data)
         return response.Response(data)
     
 BillSumPriceListViewAPI = BillSumPriceListView.as_view()
