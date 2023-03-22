@@ -8,3 +8,4 @@ djangorestframework==3.14.0
 knox==0.1.14
 PyJWT==2.6.0
 requests==2.28.2
+python-dateutil

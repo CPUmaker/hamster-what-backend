@@ -7,6 +7,7 @@ from core.api.password import ChangePasswordView
 from core.api.profile import ProfileViewSet
 from core.api.coupon import CouponViewSet
 from core.api.bill import *
+from core.api.billSearch import SearchBillListView
 
 router = routers.DefaultRouter()
 
@@ -32,7 +33,10 @@ urlpatterns += [
 
     # bill
     path('api/bill/', bill_list_create_api, name="bill-list"),
-    path('api/bill/<uuid:pk>/', bill_detail_api, name="bill-detail")
+    path('api/bill/<uuid:pk>/', bill_detail_api, name="bill-detail"),
+
+    # bill search
+    path('api/bill/search/', SearchBillListView.as_view(), name="bill-search")
 ]
 
 

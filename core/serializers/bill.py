@@ -12,7 +12,7 @@ class BillSerializer(serializers.ModelSerializer):
         fields = (
             'user',
             'url',
-            'title',
+            'wallet',
             'date',
             'datetime',
             'price',
