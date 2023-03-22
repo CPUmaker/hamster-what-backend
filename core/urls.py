@@ -38,3 +38,9 @@ urlpatterns += [
     # bill search
     path('api/bill/search/', SearchBillListView.as_view(), name="bill-search")
 ]
+
+
+from rest_framework.authtoken.views import obtain_auth_token
+urlpatterns += [
+    path('api/auth/', obtain_auth_token)
+]
