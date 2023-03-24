@@ -16,7 +16,7 @@ class Profile(TimeStampedModel):
     affiliation = models.CharField(
         max_length=100, verbose_name="Name of your organization in English",
     )
-    photo = models.ImageField(upload_to='media/', max_length=100000, null=True, blank=True, default="https://static.productionready.io/images/smiley-cyrus.jpg")
+    photo = models.IntegerField(default=1)
 
     def __str__(self):
         return self.user.username
