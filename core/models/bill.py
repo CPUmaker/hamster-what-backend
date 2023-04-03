@@ -41,20 +41,7 @@ class BillSearchQuerySet(models.QuerySet):
         if user is not None:
             qs = self.filter(user=user).filter(lookup)
         return qs
-    
-    # def searchTitle(self, keyword, user=None):
-    #     lookup = Q(title__contains = keyword)
-    #     qs = self.filter(lookup)
-    #     if user is not None:
-    #         qs = self.filter(user=user).filter(lookup)
-    #     return qs
-    
 
-    # def categorieAmount(self, date, categories, user=None):
-    #     if date == "day":
-    #         qs = self.searchCategories(categories, user=user).searchToday(user=user)
-    #     elif date == "month":
-    #         qs = self.searchCategories(categories, user=user).searchThisMonth(user=user)
 
 class BillManager(models.Manager):
 
