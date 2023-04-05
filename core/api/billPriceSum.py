@@ -1,16 +1,13 @@
 from rest_framework import generics, response
 from core.models.bill import Bill, BillSearchQuerySet
 from core.serializers.bill import BillSerializer
-from rest_framework import authentication
+from rest_framework import permissions, authentication
 from django.db.models import Sum
 
 class BillSumPriceListView(generics.ListAPIView):
     queryset = Bill.objects.all()
     serializer_class = BillSerializer
-    authentication_classes = [
-        authentication.SessionAuthentication,
-        authentication.TokenAuthentication
-    ]
+    permission_classes = (permissions.IsAuthenticated,)
 
     
     def get(self, request, *args, **kwargs):
@@ -27,7 +24,8 @@ class BillSumPriceListView(generics.ListAPIView):
             8: "Electronics",
             9: "Travel",
             10: "House & Car",
-            11: "Others",
+            11: "Salary",
+            12: "Others"
         }
         queryset = self.filter_queryset(self.get_queryset())
         user = None
