@@ -25,7 +25,7 @@ def send_activation_email(sender, instance, created, *args, **kwargs):
             'current_user': instance,
             'username': instance.username,
             'email': instance.email,
-            'domain': 'localhost:8000',
+            'domain': 'hamsterwhat.com',
             'token': AuthToken.objects.create(instance)[0].digest
         }
 
@@ -34,11 +34,11 @@ def send_activation_email(sender, instance, created, *args, **kwargs):
 
         msg = EmailMessage(
             # title:
-            "User Verification for {title}".format(title="Some website title"),
+            "User Verification for {title}".format(title="HamsterWhat"),
             # message:
             email_html_message,
             # from:
-            "noreply@somehost.local",
+            "hamsterwhat@gmail.com",
             # to:
             [instance.email]
         )
@@ -61,11 +61,11 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     msg = EmailMessage(
         # title:
-        "Password Reset for {title}".format(title="Some website title"),
+        "Password Reset for {title}".format(title="HamsterWhat"),
         # message:
         email_html_message,
         # from:
-        "noreply@somehost.local",
+        "hamsterwhat@gmail.com",
         # to:
         [reset_password_token.user.email]
     )
