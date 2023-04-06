@@ -72,16 +72,12 @@ class Bill(UUIDModel):
     # need confirmation
     categories = (
         (1, "Food"),
-        (2, "Groceries"),
-        (3, "Transportation"),
-        (4, "clothing"),
-        (5, "Entertainment"),
-        (6, "Bill"),
-        (7, "Sports"),
-        (8, "Electronics"),
-        (9, "Travel"),
-        (10, "House & Car"),
-        (11, "Others")
+        (2, "Transportation"),
+        (3, "Shopping"),
+        (4, "Entertainment"),
+        (5, "Housing"),
+        (6, "Utilities"),
+        (7, "Other")
     )
 
 
