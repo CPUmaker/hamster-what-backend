@@ -12,7 +12,7 @@ class BillListCreate(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Ge
     #     authentication.SessionAuthentication,
     #     authentication.TokenAuthentication
     # ]
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.urls import reverse
 from rest_framework import generics, status, serializers, HTTP_HEADER_ENCODING, permissions
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
 from knox.auth import TokenAuthentication
 from knox.models import AuthToken
@@ -180,17 +180,14 @@ def validate_token(request):
         return Response({'valid': 'false'})
 
 
-@api_view(['DELETE'])
-@authentication_classes([])
-# @permission_classes([permissions.IsAuthenticated])
-def delete_account(request):
-    try:
-        authenticator = TokenAuthentication()
-        user, auth_token = authenticator.authenticate(request)
-        if user and auth_token:
+class DeleteAccountAPI(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def delete(self, request):
+        user = self.request.user
+        if user:
             user.delete()
             return Response({'msg': 'Delete successfully.'})
-    except:
         return Response({'msg': 'Failed to delete this account.'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
