@@ -6,7 +6,6 @@ from core.models.utils import UUIDModel
 import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
-# pip install python-dateutil
 
 
 class BillSearchQuerySet(models.QuerySet):
@@ -24,19 +23,26 @@ class BillSearchQuerySet(models.QuerySet):
             qs = self.filter(user=user).filter(lookup)
         return qs
     
-    def searchThisMonth(self, user=None):
-        end_date = date.today()
-        start_date = end_date + relativedelta(months=-1)
+    def searchByYear(self, user=None, anchor_date=date.today()):
+        start_date = anchor_date + relativedelta(month=1) + relativedelta(day=1)
+        end_date = start_date + relativedelta(years=1) + relativedelta(seconds=-1)
+        lookup = Q(date__range = [start_date, end_date])
+        qs = self.filter(lookup)
+        if user is not None:
+            qs = self.filter(user=user).filter(lookup)
+        return qs
+    
+    def searchByMonth(self, user=None, anchor_date=date.today()):
+        start_date = anchor_date + relativedelta(day=1)
+        end_date = start_date + relativedelta(months=1) + relativedelta(seconds=-1)
         lookup = Q(date__range = [start_date, end_date])
         qs = self.filter(lookup)
         if user is not None:
             qs = self.filter(user=user).filter(lookup)
         return qs
 
-    def searchToday(self, user=None):
-        end_date = date.today()
-        start_date = end_date + relativedelta(days=-1)
-        lookup = Q(date__range = [start_date, end_date])
+    def searchByDay(self, user=None, anchor_date=date.today()):
+        lookup = Q(date = anchor_date)
         qs = self.filter(lookup)
         if user is not None:
             qs = self.filter(user=user).filter(lookup)

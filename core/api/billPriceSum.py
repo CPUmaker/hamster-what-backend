@@ -36,9 +36,9 @@ class BillSumPriceListView(generics.ListAPIView):
         for i in range(1,12):
             qs = BillSearchQuerySet(Bill).searchCategories(query=i, user=user)
             if item == 'today':
-                qs = qs.searchToday(user=user)
+                qs = qs.searchByDay(user=user)
             elif item == 'month':
-                qs = qs.searchThisMonth(user=user)
+                qs = qs.searchByMonth(user=user)
             total_price = qs.aggregate(Sum('price'))
             data[categorieModel[i]] = total_price['price__sum']
         return response.Response(data)
