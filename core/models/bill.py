@@ -78,6 +78,13 @@ class Bill(UUIDModel):
         (5, "Housing"),
         (6, "Utilities"),
         (7, "Other")
+        (8, "Salary"),
+        (9, "Interest"),
+        (10, "Investment"),
+        (11, "Child benefit"),
+        (12, "Pension"),
+        (13, "Income"),
+        (14, "Other"),
     )
 
 
