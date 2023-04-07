@@ -15,17 +15,18 @@ class BillSumPriceListView(generics.ListAPIView):
 
         categorieModel = {
             1: "Food",
-            2: "Groceries",
-            3: "Transportation",
-            4: "clothing",
-            5: "Entertainment",
-            6: "Bill",
-            7: "Sports",
-            8: "Electronics",
-            9: "Travel",
-            10: "House & Car",
-            11: "Salary",
-            12: "Others"
+            2: "Transportation",
+            3: "Shopping",
+            4: "Entertainment",
+            5: "Housing",
+            6: "Utilities",
+            7: "Other",
+            8: "Salary",
+            9: "Interest",
+            10: "Investment",
+            11: "Child benefit",
+            12: "Pension",
+            13: "Income",
         }
         queryset = self.filter_queryset(self.get_queryset())
         user = None

@@ -8,10 +8,6 @@ from rest_framework import permissions, authentication
 class BillListCreate(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Bill.objects.all()
     serializer_class = BillSerializer
-    # authentication_classes = [
-    #     authentication.SessionAuthentication,
-    #     authentication.TokenAuthentication
-    # ]
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
