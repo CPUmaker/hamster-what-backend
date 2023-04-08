@@ -7,14 +7,14 @@ from core.models.bill import Bill
 endpoint = "/api/bill/"
 
 data_1 = {
-    "title": "water",
+    "wallet": 3,
     "price": "0.85",
     "comment": "discount",
     "categories": 8
 }
 
 data_2 = {
-    "title": "mattress",
+    "wallet": 1,
     "price": "99.65",
     "comment": "None",
     "categories": 2
@@ -56,7 +56,7 @@ class BillTests(APITestCase):
         get_response = self.client.get(endpoint)
         # print(get_response.json())
         self.assertEqual(get_response.status_code, 200)
-        self.assertEqual(get_response.json()["title"],data_1["title"])
+        self.assertEqual(get_response.json()["wallet"],data_1["wallet"])
         self.assertEqual(get_response.json()["price"],data_1["price"])
         self.assertEqual(get_response.json()["categories"],data_1["categories"])
         self.assertEqual(get_response.json()["comment"],data_1["comment"])
@@ -68,7 +68,7 @@ class BillTests(APITestCase):
 
         endpoint = f"/api/bill/{Bill.objects.all()[0].id}/"
         data_updated = {
-            "title": "buttersquash",
+            "wallet": 2,
             "price": "0.01",
             "comment": "juicy",
             "categories": 4
@@ -76,21 +76,21 @@ class BillTests(APITestCase):
         get_response = self.client.put(endpoint, data_updated, format='json')
         # print(get_response.json())
         self.assertEqual(get_response.status_code, 200)
-        self.assertEqual(get_response.json()["title"],data_updated["title"])
+        self.assertEqual(get_response.json()["wallet"],data_updated["wallet"])
         self.assertEqual(get_response.json()["price"],data_updated["price"])
         self.assertEqual(get_response.json()["categories"],data_updated["categories"])
         self.assertEqual(get_response.json()["comment"],data_updated["comment"])
 
         ## partial update
         data_updated_2 = {
-            "title": "buttersquash",
+            "wallet": 2,
             "price": "56.60",
             "comment": "juicy",
             "categories": 4
         }
         get_response = self.client.put(endpoint, data_updated_2, format='json')
         self.assertEqual(get_response.status_code, 200)
-        self.assertEqual(get_response.json()["title"],data_updated_2["title"])
+        self.assertEqual(get_response.json()["wallet"],data_updated_2["wallet"])
         self.assertEqual(get_response.json()["price"],data_updated_2["price"])
         self.assertEqual(get_response.json()["categories"],data_updated_2["categories"])
         self.assertEqual(get_response.json()["comment"],data_updated_2["comment"])
